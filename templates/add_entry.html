@@ -1,21 +1,27 @@
-
-<!-- templates/add_entry.html -->
 {% extends "base.html" %}
 {% block content %}
 <h1>Add a Journal Entry</h1>
-<div class="card">
-    <textarea placeholder="Add text here..."></textarea>
-    <div style="text-align: right;">
-        <img src="{{ url_for('static', filename='mic-icon.png') }}" style="width: 24px;">
+<form method="POST" action="{{ url_for('add_entry') }}">
+    <div class="card">
+        <textarea name="content" placeholder="Add text here..." style="height: 149px; width: 500px;"></textarea>
+        <div style="text-align: right;">
+            <img src="{{ url_for('static', filename='mic-icon.jpg') }}" style="width: 24px;">
+        </div>
     </div>
-</div>
-<h2 style="text-align: center;">How do you feel?</h2>
-<div class="mood-container">
-    <button class="mood-button" style="background-color: #FF4D4D;"></button>
-    <button class="mood-button" style="background-color: #FFA07A;"></button>
-    <button class="mood-button" style="background-color: #FFD700;"></button>
-    <button class="mood-button" style="background-color: #90EE90;"></button>
-    <button class="mood-button" style="background-color: #32CD32;"></button>
-</div>
-<a href="{{ url_for('home') }}" class="button">Done!</a>
+    <h2 style="text-align: center;">How do you feel?</h2>
+    <div class="mood-container">
+        <button type="button" class="mood-button" style="background-color: #FF4D4D;" onclick="setMood('angry')"></button>
+        <button type="button" class="mood-button" style="background-color: #FFA07A;" onclick="setMood('sad')"></button>
+        <button type="button" class="mood-button" style="background-color: #FFD700;" onclick="setMood('neutral')"></button>
+        <button type="button" class="mood-button" style="background-color: #90EE90;" onclick="setMood('happy')"></button>
+        <button type="button" class="mood-button" style="background-color: #32CD32;" onclick="setMood('excited')"></button>
+    </div>
+    <input type="hidden" name="mood" id="mood-input">
+    <button type="submit" class="button">Done!</button>
+</form>
+<script>
+    function setMood(mood) {
+        document.getElementById('mood-input').value = mood;
+    }
+</script>
 {% endblock %}
