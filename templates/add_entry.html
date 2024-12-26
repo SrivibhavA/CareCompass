@@ -10,11 +10,11 @@
     </div>
     <h2 style="text-align: center;">How do you feel?</h2>
     <div class="mood-container">
-        <button type="button" class="mood-button" style="background-color: #FF4D4D;" onclick="setMood('angry')"></button>
-        <button type="button" class="mood-button" style="background-color: #FFA07A;" onclick="setMood('sad')"></button>
-        <button type="button" class="mood-button" style="background-color: #FFD700;" onclick="setMood('neutral')"></button>
-        <button type="button" class="mood-button" style="background-color: #90EE90;" onclick="setMood('happy')"></button>
-        <button type="button" class="mood-button" style="background-color: #32CD32;" onclick="setMood('excited')"></button>
+        <button type="button" class="mood-button" style="background-color: #FF4D4D; background-image: url('static/sick_emoji.svg'); background-size: contain; background-repeat: no-repeat; background-position: center center;" onclick="setMood('sick')"></button>
+        <button type="button" class="mood-button" style="background-color: #FFA07A; background-image: url('static/sad_emoji.svg'); background-size: contain; background-repeat: no-repeat; background-position: center center;" onclick="setMood('sad')"></button>
+        <button type="button" class="mood-button" style="background-color: #FFD700; background-image: url('static/neutral_emoji.svg'); background-size: contain; background-repeat: no-repeat; background-position: center center;" onclick="setMood('normal')"></button>
+        <button type="button" class="mood-button" style="background-color: #90EE90;  background-image: url('static/smile_emoji.svg'); background-size: contain; background-repeat: no-repeat; background-position: center center;" onclick="setMood('happy')"></button>
+        <button type="button" class="mood-button" style="background-color: #32CD32;  background-image: url('static/excited_emoji.svg'); background-size: contain; background-repeat: no-repeat; background-position: center center;" onclick="setMood('excited')"></button>
     </div>
     <input type="hidden" name="mood" id="mood-input">
     <button type="submit" class="button">Done!</button>
