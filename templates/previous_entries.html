@@ -1,0 +1,21 @@
+<!-- templates/previous_entries.html -->
+{% extends "base.html" %}
+{% block content %}
+<h1>Your previous Journal Entries</h1>
+{% for entry in entries %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <p>Date Written: {{ entry[1] }}</p>
+            <p>Your Feeling: {{ entry[3] }}/5</p>
+            <p>Doctor's Comment: {{ entry[4] or 'No comment yet' }}</p>
+        </div>
+        <div style="border-left: 2px solid #00CED1; margin: 0 15px;"></div>
+        <div>
+            <p style="font-weight: bold;">Journal Entry:</p>
+            <img src="{{ url_for('static', filename='eye-icon.png') }}" style="width: 24px;">
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
