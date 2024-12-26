@@ -1,3 +1,4 @@
+from datetime import date
 from flask import Flask, render_template, request, jsonify
 from classes.journal import Journal
 from datetime import datetime
@@ -48,18 +49,16 @@ def previous_entries():
 # API endpoints
 @app.route('/add_entry', methods=['POST'])
 def create_entry():
-    # data = request.json
-    # text = data['entry_text'] 
-    # feeling_score = data['feeling'] 
-    # journal = Journal(text, int(feeling_score))
-    # journal.save()
-
     if request.method == 'POST':
         text = request.form['content']  # Get data from input1
         feeling_score = request.form['mood']  # Get data from input2
-        journal = Journal(text, feeling_score)
+        journal = Journal(text, feeling_score, date.today)
         journal.save()
     return render_template('previous_entries.html')
+
+@app.route('/previous_entries.html', methods=['POST','GET'])
+def display_entries():
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)
