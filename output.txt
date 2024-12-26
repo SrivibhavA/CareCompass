@@ -1,4 +1,3 @@
 Text: hey im good; Feeling Score: happy
 Text: wsg; Feeling Score: excited
-Text: hey; Feeling Score: normal;Date: <built-in method today of type object at 0x109744a08>
 Text: hey man; Feeling Score: happy;Date: 2024-12-26
