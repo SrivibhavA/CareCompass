@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from classes.journal import Journal
 from datetime import datetime
 import sqlite3
 
@@ -45,18 +46,20 @@ def previous_entries():
     return render_template('previous_entries.html', entries=entries)
 
 # API endpoints
-@app.route('/api/entry', methods=['POST'])
+@app.route('/add_entry', methods=['POST'])
 def create_entry():
-    data = request.json
-    conn = sqlite3.connect('journal.db')
-    c = conn.cursor()
-    c.execute('''
-        INSERT INTO entries (date_written, entry_text, feeling)
-        VALUES (?, ?, ?)
-    ''', (datetime.now().isoformat(), data['entry_text'], data['feeling']))
-    conn.commit()
-    conn.close()
-    return jsonify({'status': 'success'})
+    # data = request.json
+    # text = data['entry_text'] 
+    # feeling_score = data['feeling'] 
+    # journal = Journal(text, int(feeling_score))
+    # journal.save()
+
+    if request.method == 'POST':
+        text = request.form['content']  # Get data from input1
+        feeling_score = request.form['mood']  # Get data from input2
+        journal = Journal(text, feeling_score)
+        journal.save()
+    return render_template('previous_entries.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
