@@ -52,7 +52,7 @@ def create_entry():
     if request.method == 'POST':
         text = request.form['content']  # Get data from input1
         feeling_score = request.form['mood']  # Get data from input2
-        journal = Journal(text, feeling_score, date.today)
+        journal = Journal(text, feeling_score, date.today())
         journal.save()
     return render_template('previous_entries.html')
 
