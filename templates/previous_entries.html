@@ -16,14 +16,12 @@
             <img src="{{ url_for('static', filename='eye-icon.png') }}" style="width: 24px;">
         </div>
     </div>
-    
-     <input type="hidden" name="IDK" id="test">
-     <button type="button" class="button">Previous Entry</button>
-     <button type="button" class="button">Previous Entry</button>
-     <button type="button" class="button">Previous Entry</button>
+    <form>
+    <input type="hidden" name="IDK" id="hidden-input">
+    <button type="button" class="button">Previous Entry</button>
+    <button type="button" class="button">Next Entry</button>
+    <button type="button" class="button">Last Entry</button>
 </form>
-<script>
-	 
 </div>
 {% endfor %}
 {% endblock %}
