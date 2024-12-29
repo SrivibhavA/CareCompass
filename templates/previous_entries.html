@@ -2,11 +2,6 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Your previous Journal Entries</h1>
-<style>
-body {
-  background-color: aqua;
-}
-</style>
 {% for entry in entries %}
 <div class="card">
     <div style="display: flex; justify-content: space-between;">
