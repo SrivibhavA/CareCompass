@@ -6,31 +6,15 @@
 <div class="card">
     <div style="display: flex; justify-content: space-between;">
         <div>
-            <p>Date Written: {{ entry[0] }}</p>
-            <p>Your Feeling: {{ entry[1] }}/5</p>
+            <p>Date Written: {{ entry[1] }}</p>
+            <p>Your Feeling: {{ entry[3] }}/5</p>
             <p>Doctor's Comment: {{ entry[4] or 'No comment yet' }}</p>
         </div>
         <div style="border-left: 2px solid #00CED1; margin: 0 15px;"></div>
         <div>
             <p style="font-weight: bold;">Journal Entry:</p>
             <img src="{{ url_for('static', filename='eye-icon.png') }}" style="width: 24px;">
-	<div>
-  <button 
-    onclick="alert('previous entry')" 
-    style="background-color: white; color: #05C3DD;"
-    style = "width: 50px;"
-    style = "length: 600px">
-    previous entry 
-  </button>
-<div>
-  <button 
-    onclick="alert('previous entry')" 
-    style="background-color: white; color: #05C3DD;"
-    style = "width: 50px;"
-    style = "length: 600px">
-    previous entry 2 
-  </button>
-</div>
+        </div>
     </div>
 </div>
 {% endfor %}
