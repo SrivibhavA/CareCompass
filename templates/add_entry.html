@@ -18,10 +18,15 @@
     </div>
     <input type="hidden" name="mood" id="mood-input">
     <button type="submit" class="button">Done!</button>
+
 </form>
 <script>
     function setMood(mood) {
         document.getElementById('mood-input').value = mood;
+<div>
+<a href="{{ url_for('home') }}" class="button">Get Started</a>
+</div>
+
     }
 </script>
 {% endblock %}
