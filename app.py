@@ -1,5 +1,5 @@
 from datetime import date
-from flask import Flask, render_template, request, jsonify
+from flask import *
 from classes.journal import Journal
 from datetime import datetime
 import sqlite3
@@ -38,13 +38,13 @@ def home():
 def add_entry():
     return render_template('add_entry.html')
 
-@app.route('/previous_entries')
-def previous_entries():
-    conn = sqlite3.connect('journal.db')
-    c = conn.cursor()
-    entries = c.execute('SELECT * FROM entries ORDER BY date_written DESC').fetchall()
-    conn.close()
-    return render_template('previous_entries.html', entries=entries)
+# @app.route('/previous_entries')
+# def previous_entries():
+#     conn = sqlite3.connect('journal.db')
+#     c = conn.cursor()
+#     entries = c.execute('SELECT * FROM entries ORDER BY date_written DESC').fetchall()
+#     conn.close()
+#     return render_template('previous_entries.html', entries=entries)
 
 # API endpoints
 @app.route('/add_entry', methods=['POST'])
@@ -54,11 +54,19 @@ def create_entry():
         feeling_score = request.form['mood']  # Get data from input2
         journal = Journal(text, feeling_score, date.today())
         journal.save()
-    return render_template('previous_entries.html')
+    return redirect(url_for('display_entries'))
 
-@app.route('/previous_entries.html', methods=['POST','GET'])
+@app.route('/previous_entries', methods = ["GET"])
 def display_entries():
-    pass
+    entries = []
+    with open("output.txt", "r") as file:
+        lines = file.readlines()
+        for line in lines:
+            entry_info = line.strip().split(";")
+            entries.append(entry_info)
+            print(entries)
+    return render_template('previous_entries.html', entries = entries)
+        
 
 if __name__ == '__main__':
     app.run(debug=True)
