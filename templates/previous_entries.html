@@ -14,14 +14,24 @@
         <div>
             <p style="font-weight: bold;">Journal Entry:</p>
             <img src="{{ url_for('static', filename='eye-icon.png') }}" style="width: 24px;">
-        </div>
+	<div>
+  <button 
+    onclick="alert('previous entry')" 
+    style="background-color: white; color: #05C3DD;"
+    style = "width: 50px;"
+    style = "length: 600px">
+    previous entry 
+  </button>
+<div>
+  <button 
+    onclick="alert('previous entry')" 
+    style="background-color: white; color: #05C3DD;"
+    style = "width: 50px;"
+    style = "length: 600px">
+    previous entry 2 
+  </button>
+</div>
     </div>
-    <form>
-    <input type="hidden" name="IDK" id="hidden-input">
-    <button type="button" class="button">Previous Entry</button>
-    <button type="button" class="button">Next Entry</button>
-    <button type="button" class="button">Last Entry</button>
-</form>
 </div>
 {% endfor %}
 {% endblock %}
