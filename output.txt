@@ -1,10 +1,1 @@
-Text: hello; Feeling Score: normal; Date: 2024-12-29Date: 2024-12-29
 Text: hello;Feeling Score: happy;Date: 2024-12-29
-Text: hello;Feeling Score: ;Date: 2024-12-29
-Text: hello;Feeling Score: happy;Date: 2024-12-29
-Text: hello;Feeling Score: excited;Date: 2024-12-29
-Text: test;Feeling Score: happy;Date: 2024-12-29
-Text: hello;Feeling Score: excited;Date: 2024-12-29
-Text: hello;Feeling Score: happy;Date: 2024-12-29
-Text: hello;Feeling Score: happy;Date: 2024-12-29
-Text: wsg;Feeling Score: excited;
