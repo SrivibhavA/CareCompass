@@ -1,1 +1,23 @@
-Text: hello;Feeling Score: happy;Date: 2024-12-29
+Name: Sarah;Text: First day of chemo today. The nurses were really kind and helped me feel less nervous. Still processing everything.;Feeling Score: neutral;Date: 2024-12-15
+Name: Sarah;Text: Feeling quite nauseous from the treatment, but my sister came to visit which lifted my spirits a bit.;Feeling Score: sad;Date: 2024-12-16
+Name: Sarah;Text: Better day today. The anti-nausea meds are helping and I managed to eat a full meal.;Feeling Score: happy;Date: 2024-12-17
+Name: Sarah;Text: Really struggling with fatigue. Miss feeling like myself.;Feeling Score: very sad;Date: 2024-12-18
+Name: Sarah;Text: Got great news from my latest scan! The treatment seems to be working.;Feeling Score: very happy;Date: 2024-12-20
+
+Name: Michael;Text: Starting radiation therapy tomorrow. Trying to stay positive but feeling anxious.;Feeling Score: sad;Date: 2024-12-20
+Name: Michael;Text: First session went better than expected. The team explained everything clearly.;Feeling Score: neutral;Date: 2024-12-21
+Name: Michael;Text: Throat is getting sore from the radiation. Hard to eat.;Feeling Score: sad;Date: 2024-12-23
+Name: Michael;Text: Found a great online support group today. It helps to talk to others who understand.;Feeling Score: happy;Date: 2024-12-25
+Name: Michael;Text: Halfway through radiation! Celebrating small victories.;Feeling Score: very happy;Date: 2024-12-27
+
+Name: Elena;Text: Started my journal today. Need to track this journey somehow.;Feeling Score: neutral;Date: 2024-12-10
+Name: Elena;Text: Hair started falling out. Cried a lot but my husband helped me shave it off. We're in this together.;Feeling Score: sad;Date: 2024-12-12
+Name: Elena;Text: Bad day. The side effects are really hitting hard.;Feeling Score: very sad;Date: 2024-12-15
+Name: Elena;Text: My daughter drew me a picture of us together. It means everything.;Feeling Score: happy;Date: 2024-12-18
+Name: Elena;Text: Met another patient who's 5 years cancer-free. Feeling hopeful.;Feeling Score: very happy;Date: 2024-12-20
+
+Name: David;Text: Second round of immunotherapy. Staying optimistic.;Feeling Score: happy;Date: 2024-12-25
+Name: David;Text: Feeling more tired than usual but managing to work from home.;Feeling Score: neutral;Date: 2024-12-26
+Name: David;Text: Rough night with fever. Had to call the oncology nurse.;Feeling Score: very sad;Date: 2024-12-27
+Name: David;Text: Fever broke. Grateful for my medical team.;Feeling Score: happy;Date: 2024-12-28
+Name: David;Text: Taking it day by day. Looking forward to the new year.;Feeling Score: neutral;Date: 2024-12-30
