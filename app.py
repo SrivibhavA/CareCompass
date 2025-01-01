@@ -20,8 +20,6 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
 
-USER = 'David'
-
 # Routes
 @app.route('/')
 def welcome():
@@ -31,7 +29,7 @@ def welcome():
 def home():
     return render_template('home.html')
 
-@app.route('/get_started' methods = ['GET', 'POST'])
+@app.route('/get_started', methods = ['GET', 'POST'])
 def get_started():
     if request.method == 'POST':
         email = request.form['email']
@@ -39,12 +37,13 @@ def get_started():
         password = request.form['password']
 
         with open('data/users.txt', 'a') as file:
-            file.write(f"{username};{password};{email}")
+            file.write(f"\n{username}:{password}:{email}")
 
         global USER
         USER = username
 
         return redirect(url_for('home'))
+    return render_template('get_started.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -64,14 +63,9 @@ def login():
                     USER = username
                     found_match = True
                     return redirect(url_for('home'))
-            if not found_match and its == len(lines):
-                return render_template('login.html', error="Invalid username or password")
 
-        # if username in users and users[username] == password:
-        #     return print('success')
-        # else:
-        #     error = "Invalid username or password"
-        #     return render_template('login.html', error=error)
+            error = "Invalid username or password"
+            return render_template('login.html', error=error) 
 
     return render_template('login.html')
 
@@ -86,7 +80,7 @@ def create_entry():
     if request.method == 'POST':
         text = request.form['content']  # Get data from input1
         feeling_score = request.form['mood']  # Get data from input2
-        journal = Journal(NAME, text, feeling_score, date.today())
+        journal = Journal(USER, text, feeling_score, date.today())
         journal.save()
     return redirect(url_for('display_entries'))
 
