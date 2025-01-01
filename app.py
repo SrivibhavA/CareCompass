@@ -16,6 +16,21 @@ def welcome():
 def home():
     return render_template('home.html')
 
+@app.route('/get_started' methods = ['GET', 'POST'])
+def get_started():
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+
+        with open('data/users.txt', 'a') as file:
+            file.write(f"{username};{password};{email}")
+
+        global USER
+        USER = username
+
+        return redirect(url_for('home'))
+
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
