@@ -2,28 +2,10 @@ from datetime import date
 from  flask import *
 from classes.journal import Journal
 from datetime import datetime
-import sqlite3
 
 app = Flask(__name__)
 
-# Database setup
-def init_db():
-    conn = sqlite3.connect('journal.db')
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS entries
-        (id INTEGER PRIMARY KEY AUTOINCREMENT,
-         date_written TEXT NOT NULL,
-         entry_text TEXT NOT NULL,
-         feeling INTEGER NOT NULL,
-         doctor_comment TEXT)
-    ''')
-    conn.commit()
-    conn.close()
-
-# Initialize the database when the app starts
-with app.app_context():
-    init_db()
+users = {'john': '12345'}
 
 # Routes
 @app.route('/')
@@ -33,6 +15,31 @@ def welcome():
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        with open('data/users.txt', 'r') as file:
+            lines = file.readlines()
+            for line in lines:
+                line_content = line.strip().split(':')
+                if line_content[0] == username and line_content[1] == password:
+                    return redirect(url_for('home'))
+                else:
+                    error = "Invalid username or password"
+                    return render_template('login.html', error=error)
+
+        # if username in users and users[username] == password:
+        #     return print('success')
+        # else:
+        #     error = "Invalid username or password"
+        #     return render_template('login.html', error=error)
+
+    return render_template('login.html')
+
 
 @app.route('/add_entry')
 def add_entry():
@@ -58,14 +65,9 @@ def create_entry():
 
 @app.route('/previous_entries', methods = ["GET"])
 def display_entries():
-    entries = []
-    with open("output.txt", "r") as file:
-        lines = file.readlines()
-        for line in lines:
-            entry_info = line.strip().split(";")
-            entries.append(entry_info)
-            print(entries)
-    return render_template('previous_entries.html', entries = entries)
+    entry = read_entries()
+    print(entry)
+    return render_template('previous_entries.html', entries = entry)
 
 @app.route('/doctor_dashboard',  methods = ["GET"])
 def doctor_dashboard():
@@ -115,7 +117,7 @@ def parse_entry(line):
 
 def read_entries():
     try:
-        with open('output.txt', 'r') as file:
+        with open('data/output.txt', 'r') as file:
             entries = [parse_entry(line) for line in file if line.strip()]
         return entries
     except FileNotFoundError:
