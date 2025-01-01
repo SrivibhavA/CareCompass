@@ -15,7 +15,7 @@ import json
 app = Flask(__name__)
 
 # Download required NLTK data
-nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
@@ -31,7 +31,7 @@ def welcome():
 def home():
     return render_template('home.html')
 
-@app.route('/get_started' methods = ['GET', 'POST'])
+@app.route('/get_started', methods = ['GET', 'POST'])
 def get_started():
     if request.method == 'POST':
         email = request.form['email']
@@ -215,6 +215,8 @@ def find_similar_patients(current_patient, entries):
     all_texts = [current_patient_text] + [
         ' '.join(texts) for texts in unique_patients.values()
     ]
+
+    print (all_texts)
     tfidf_matrix = vectorizer.fit_transform(all_texts)
 
     # Calculate cosine similarity

@@ -32,22 +32,22 @@ document.getElementById('patientSelect').addEventListener('change', async functi
     if (!patientName) return;
 
     // Get patient's own entries
-    const entriesResponse = await fetch(`/api/patient-entries/${patientName}`);
-    const entries = await entriesResponse.json();
+   // const entriesResponse = await fetch(`/api/previous-entries/${patientName}`);
+//    const entries = await entriesResponse.json();
 
     // Display patient's entries
-    const entriesHTML = entries.map(entry => `
-        <div class="card">
-            <div class="entry-date">${entry.date}</div>
-            <div class="entry-text">${entry.text}</div>
-            <div class="entry-feeling ${entry.feeling.toLowerCase()}">
-                Feeling: ${entry.feeling}
-            </div>
-        </div>
-    `).join('');
+ //   const entriesHTML = entries.map(entry => `
+   //     <div class="card">
+     //       <div class="entry-date">${entry.date}</div>
+       //     <div class="entry-text">${entry.text}</div>
+         //   <div class="entry-feeling ${entry.feeling.toLowerCase()}">
+           //     Feeling: ${entry.feeling}
+           // </div>
+      //  </div>
+  //  `).join('');
 
-    document.getElementById('entriesList').innerHTML = entriesHTML;
-    document.getElementById('yourEntries').style.display = 'block';
+   // document.getElementById('entriesList').innerHTML = entriesHTML;
+   // document.getElementById('yourEntries').style.display = 'block';
 
     // Get similar patients
     const similarResponse = await fetch(`/api/similar-patients/${patientName}`);
