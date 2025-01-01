@@ -20,4 +20,4 @@ Name: David;Text: Second round of immunotherapy. Staying optimistic.;Feeling Sco
 Name: David;Text: Feeling more tired than usual but managing to work from home.;Feeling Score: neutral;Date: 2024-12-26
 Name: David;Text: Rough night with fever. Had to call the oncology nurse.;Feeling Score: very sad;Date: 2024-12-27
 Name: David;Text: Fever broke. Grateful for my medical team.;Feeling Score: happy;Date: 2024-12-28
-Name: David;Text: Taking it day by day. Looking forward to the new year.;Feeling Score: neutral;Date: 2024-12-30
+Name: David;Text: Taking it day by day. Looking forward to the new year.;Feeling Score: neutral;Date: 2024-12-30Text: test 2390293029;Feeling Score: ;Date: 2025-01-01
