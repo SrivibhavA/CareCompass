@@ -2,8 +2,23 @@ from datetime import date
 from  flask import *
 from classes.journal import Journal
 from datetime import datetime
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
+from datetime import datetime
+import json
 
 app = Flask(__name__)
+
+# Download required NLTK data
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
 
 USER = 'David'
 
@@ -149,6 +164,97 @@ def get_patient_entries(patient_name):
     # Sort by date
     return sorted(patient_entries, key=lambda x: x['Date'], reverse=True)
 
+def load_journal_entries():
+    entries = []
+    with open('data/output.txt', 'r') as file:
+        for line in file:
+            if line.strip():
+                parts = line.strip().split(';')
+                name = parts[0].split(': ')[1]
+                text = parts[1].split(': ')[1]
+                feeling = parts[2].split(': ')[1]
+                date = parts[3].split(': ')[1]
+                entries.append(Journal(name, text, feeling, date))
+    return entries
+
+def preprocess_text(text):
+    # Tokenize
+    tokens = word_tokenize(text.lower())
+
+    # Remove stopwords and lemmatize
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+
+    processed_tokens = [
+        lemmatizer.lemmatize(token)
+        for token in tokens
+        if token.isalnum() and token not in stop_words
+    ]
+
+    return ' '.join(processed_tokens)
+
+def find_similar_patients(current_patient, entries):
+    # Get all texts for current patient
+    current_patient_texts = [
+        entry.text
+        for entry in entries
+        if entry.name == current_patient
+    ]
+    current_patient_text = ' '.join(current_patient_texts)
+
+    # Get unique patients and their combined texts
+    unique_patients = {}
+    for entry in entries:
+        if entry.name != current_patient:
+            if entry.name not in unique_patients:
+                unique_patients[entry.name] = []
+            unique_patients[entry.name].append(entry.text)
+
+    # Calculate similarity scores
+    vectorizer = TfidfVectorizer(preprocessor=preprocess_text)
+    all_texts = [current_patient_text] + [
+        ' '.join(texts) for texts in unique_patients.values()
+    ]
+    tfidf_matrix = vectorizer.fit_transform(all_texts)
+
+    # Calculate cosine similarity
+    similarities = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:])[0]
+
+    # Create result list
+    results = []
+    for i, (name, texts) in enumerate(unique_patients.items()):
+        results.append({
+            'name': name,
+            'similarity_score': float(similarities[i]),
+            'entries': [
+                {
+                    'text': entry.text,
+                    'feeling': entry.feeling_score,
+                    'date': entry.date
+                }
+                for entry in entries
+                if entry.name == name
+            ]
+        })
+
+    # Sort by similarity score
+    results.sort(key=lambda x: x['similarity_score'], reverse=True)
+    return results
+
+
+
+@app.route('/connect')
+def connect():
+    entries = load_journal_entries()
+    unique_patients = list(set(entry.name for entry in entries))
+    return render_template('connect.html', patients=unique_patients)
+
+
+@app.route('/api/similar-patients/<patient_name>')
+def get_similar_patients(patient_name):
+    entries = load_journal_entries()
+    similar_patients = find_similar_patients(patient_name, entries)
+    return jsonify(similar_patients)
 
 
 if __name__ == '__main__':
