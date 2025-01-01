@@ -5,7 +5,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-users = {'john': '12345'}
+USER = 'David'
 
 # Routes
 @app.route('/')
@@ -24,13 +24,18 @@ def login():
 
         with open('data/users.txt', 'r') as file:
             lines = file.readlines()
+            found_match = False
+            its = 0
             for line in lines:
+                its += 1
                 line_content = line.strip().split(':')
                 if line_content[0] == username and line_content[1] == password:
+                    global USER
+                    USER = username
+                    found_match = True
                     return redirect(url_for('home'))
-                else:
-                    error = "Invalid username or password"
-                    return render_template('login.html', error=error)
+            if not found_match and its == len(lines):
+                return render_template('login.html', error="Invalid username or password")
 
         # if username in users and users[username] == password:
         #     return print('success')
@@ -45,29 +50,20 @@ def login():
 def add_entry():
     return render_template('add_entry.html')
 
-# @app.route('/previous_entries')
-# def previous_entries():
-#     conn = sqlite3.connect('journal.db')
-#     c = conn.cursor()
-#     entries = c.execute('SELECT * FROM entries ORDER BY date_written DESC').fetchall()
-#     conn.close()
-#     return render_template('previous_entries.html', entries=entries)
-
 # API endpoints
 @app.route('/add_entry', methods=['POST'])
 def create_entry():
     if request.method == 'POST':
         text = request.form['content']  # Get data from input1
         feeling_score = request.form['mood']  # Get data from input2
-        journal = Journal(text, feeling_score, date.today())
+        journal = Journal(NAME, text, feeling_score, date.today())
         journal.save()
     return redirect(url_for('display_entries'))
 
 @app.route('/previous_entries', methods = ["GET"])
 def display_entries():
-    entry = read_entries()
-    print(entry)
-    return render_template('previous_entries.html', entries = entry)
+    entries = get_patient_entries(USER)
+    return render_template('previous_entries.html', entries = entries)
 
 @app.route('/doctor_dashboard',  methods = ["GET"])
 def doctor_dashboard():

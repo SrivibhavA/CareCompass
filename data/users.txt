@@ -1,4 +1,4 @@
-David:12345
-Sarah:67890
-Michael:66666
-Elena:10101
+David:12345:david@gmail.com
+Sarah:67890:sarah@gmail.com
+Michael:66666:micheal@gmail.com
+Elena:10101:elena@gmail.com
