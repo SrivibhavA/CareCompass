@@ -1,0 +1,154 @@
+<!-- templates/connect.html -->
+{% extends "base.html" %}
+{% block content %}
+<div class="header">
+    <div class="logo">CareCompass</div>
+</div>
+
+<div class="card">
+    <h2>Connect with Similar Patients</h2>
+    <p>Select your name to find patients with similar experiences:</p>
+    <select id="patientSelect" class="select-input">
+        <option value="">Choose your name...</option>
+        {% for patient in patients %}
+        <option value="{{ patient }}">{{ patient }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div id="yourEntries" style="display: none;">
+    <h2>Your Journal Entries</h2>
+    <div id="entriesList"></div>
+</div>
+
+<div id="similarPatients" style="display: none;">
+    <h2>Similar Experiences</h2>
+    <div id="patientsList"></div>
+</div>
+
+<script>
+document.getElementById('patientSelect').addEventListener('change', async function() {
+    const patientName = this.value;
+    if (!patientName) return;
+
+    // Get patient's own entries
+    const entriesResponse = await fetch(`/api/patient-entries/${patientName}`);
+    const entries = await entriesResponse.json();
+
+    // Display patient's entries
+    const entriesHTML = entries.map(entry => `
+        <div class="card">
+            <div class="entry-date">${entry.date}</div>
+            <div class="entry-text">${entry.text}</div>
+            <div class="entry-feeling ${entry.feeling.toLowerCase()}">
+                Feeling: ${entry.feeling}
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('entriesList').innerHTML = entriesHTML;
+    document.getElementById('yourEntries').style.display = 'block';
+
+    // Get similar patients
+    const similarResponse = await fetch(`/api/similar-patients/${patientName}`);
+    const similarPatients = await similarResponse.json();
+
+    // Display similar patients
+    const patientsHTML = similarPatients.map(patient => `
+        <div class="card">
+            <div class="patient-header">
+                <h3>${patient.name}</h3>
+                <div class="similarity-score">
+                    ${(patient.similarity_score * 100).toFixed(1)}% similar
+                </div>
+            </div>
+            <div class="patient-entries">
+                ${patient.entries.map(entry => `
+                    <div class="mini-entry">
+                        <div class="entry-date">${entry.date}</div>
+                        <div class="entry-text">${entry.text}</div>
+                        <div class="entry-feeling ${entry.feeling.toLowerCase()}">
+                            ${entry.feeling}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('patientsList').innerHTML = patientsHTML;
+    document.getElementById('similarPatients').style.display = 'block';
+});
+</script>
+
+<style>
+.select-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #00CED1;
+    border-radius: 15px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.entry-date {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.entry-text {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.entry-feeling {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.entry-feeling.sad {
+    background-color: #FFB6C1;
+    color: #D8000C;
+}
+
+.entry-feeling.neutral {
+    background-color: #E8E8E8;
+    color: #666;
+}
+
+.entry-feeling.happy {
+    background-color: #98FB98;
+    color: #006400;
+}
+
+.patient-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.similarity-score {
+    background-color: #00CED1;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.mini-entry {
+    border-left: 3px solid #00CED1;
+    padding-left: 12px;
+    margin: 10px 0;
+}
+
+.patient-entries {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+</style>
+{% endblock %}
