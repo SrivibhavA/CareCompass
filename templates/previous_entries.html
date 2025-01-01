@@ -6,14 +6,9 @@
 <div class="card">
     <div style="display: flex; justify-content: space-between;">
         <div>
-            <p>Date Written: {{ entry[2] }}</p>
-            <p>Your Feeling: {{ entry[1] }}/5</p>
-            <p>Patient's Comment: {{ entry[0]}}</p>
-        </div>
-        <div style="border-left: 2px solid #00CED1; margin: 0 15px;"></div>
-        <div>
-            <p style="font-weight: bold;">Journal Entry:</p>
-            <img src="{{ url_for('static', filename='eye-icon.png') }}" style="width: 24px;">
+            <p>Date Written: {{ entry['Date'] }}</p>
+            <p>Your Feeling: {{ entry['Feeling Score'] }}</p>
+            <p>Patient's Comment: {{ entry['Text']}}</p>
         </div>
     </div>
 </div>
