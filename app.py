@@ -56,15 +56,17 @@ def login():
             found_match = False
             its = 0
             for line in lines:
-                its += 1
                 line_content = line.strip().split(':')
                 if line_content[0] == username and line_content[1] == password:
                     global USER
                     USER = username
                     found_match = True
-                    return redirect(url_for('home'))
-
-            error = "Invalid username or password"
+                    if line_content[-1] == 'Patient':
+                        return redirect(url_for('home'))
+                    elif line_content[-1] == 'Doctor':
+                        return redirect(url_for('doctor_dashboard'))
+            if not found_match and its == len(lines):
+                error = "Invalid username or password"
             return render_template('login.html', error=error) 
 
     return render_template('login.html')

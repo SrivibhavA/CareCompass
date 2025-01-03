@@ -1,6 +1,8 @@
-David:12345:david@gmail.com
-Sarah:67890:sarah@gmail.com
-Michael:66666:micheal@gmail.com
-Elena:10101:elena@gmail.com
-Dhruv:041210:dhruvsiri04@gmail.com
-Suresh:896986:s.sureshkumar@gmail.com
+Jeffrey:13579:Jeffrey@hospital.com:Doctor
+Nadine:24680:Nadine@hospital.com:Doctor
+David:12345:david@gmail.com:Patient
+Sarah:67890:sarah@gmail.com:Patient
+Michael:66666:micheal@gmail.com:Patient
+Elena:10101:elena@gmail.com:Patient
+Dhruv:041210:dhruvsiri04@gmail.com:Patient
+Suresh:896986:s.sureshkumar@gmail.com:Patient
