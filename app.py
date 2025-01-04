@@ -1,3 +1,4 @@
+#Libraries and Packages
 from datetime import date
 from  flask import *
 from classes.journal import Journal
@@ -20,15 +21,17 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
 
-# Routes
+# Routes and APIs
 @app.route('/')
 def welcome():
     return render_template('welcome.html')
 
+#This route renders the home page
 @app.route('/home')
 def home():
     return render_template('home.html')
 
+#This route shows the sign up page. Cancer patients or doctors use this page to sign up.
 @app.route('/get_started', methods = ['GET', 'POST'])
 def get_started():
     if request.method == 'POST':
@@ -45,6 +48,7 @@ def get_started():
         return redirect(url_for('home'))
     return render_template('get_started.html')
 
+#This is the login screen where patients and doctors can login to existing accounts.
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -71,7 +75,7 @@ def login():
 
     return render_template('login.html')
 
-
+#This renders the add entry template where patients can add their entries.
 @app.route('/add_entry')
 def add_entry():
     return render_template('add_entry.html')
@@ -85,6 +89,7 @@ def create_entry():
         journal = Journal(USER, text, feeling_score, date.today())
         journal.save()
     return redirect(url_for('display_entries'))
+
 
 @app.route('/previous_entries', methods = ["GET"])
 def display_entries():
@@ -188,6 +193,33 @@ def preprocess_text(text):
     ]
 
     return ' '.join(processed_tokens)
+
+
+"""
+    Finds patients with similar journal entries to the current patient.
+
+    Args:
+        current_patient: The name of the current patient.
+        entries: A list of journal entry objects, 
+                 where each object has attributes like 'name', 'text', 'feeling_score', 'date'.
+
+    Returns:
+        A list of dictionaries, where each dictionary represents a patient 
+        and contains:
+            - 'name': The name of the patient.
+            - 'similarity_score': The cosine similarity score between the current 
+                                patient and this patient's entries.
+            - 'entries': A list of journal entry objects for this patient.
+
+    This function first extracts all journal entries for the current patient. 
+    Then, it groups entries by other patients and combines their entries into 
+    single strings. 
+    Next, it uses TF-IDF to convert the text data into numerical vectors 
+    and calculates cosine similarity between the current patient and 
+    other patients based on their journal entries. 
+    Finally, it returns a list of dictionaries containing patient names, 
+    similarity scores, and their corresponding journal entries.
+"""
 
 def find_similar_patients(current_patient, entries):
     # Get all texts for current patient
