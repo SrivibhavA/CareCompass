@@ -21,6 +21,9 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
 
+global USER
+
+
 # Routes and APIs
 @app.route('/')
 def welcome():
@@ -42,7 +45,6 @@ def get_started():
         with open('data/users.txt', 'a') as file:
             file.write(f"\n{username}:{password}:{email}")
 
-        global USER
         USER = username
 
         return redirect(url_for('home'))
@@ -275,7 +277,7 @@ def find_similar_patients(current_patient, entries):
 def connect():
     entries = load_journal_entries()
     unique_patients = list(set(entry.name for entry in entries))
-    return render_template('connect.html', patients=unique_patients)
+    return render_template('connect.html', patients=unique_patients, patient_name=USER)
 
 
 @app.route('/api/similar-patients/<patient_name>')
