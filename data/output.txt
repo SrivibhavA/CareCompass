@@ -20,3 +20,4 @@ Name: David;Text: Fever broke. Grateful for my medical team.;Feeling Score: happ
 Name: David;Text: Taking it day by day. Looking forward to the new year.;Feeling Score: neutral;Date: 2024-12-30Name: David;Text: Testing new account;Feeling Score: very happy;Date: 2025-01-01
 Name: Suresh;Text: Testing;Feeling Score: happy;Date: 2025-01-01
 Name: Dhruv;Text: Testing;Feeling Score: happy;Date: 2025-01-01
+Name: Manav;Text: ;Feeling Score: ;Date: 2025-01-04
