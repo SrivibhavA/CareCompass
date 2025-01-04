@@ -30,23 +30,6 @@
 document.getElementById('patientSelect').addEventListener('change', async function() {
     const patientName = this.value;
     if (!patientName) return;
-
-    // Get patient's own entries
-    const entriesResponse = await fetch(`/api/patient-entries/${patientName}`);
-    const entries = await entriesResponse.json();
-
-    // Display patient's entries
-    const entriesHTML = entries.map(entry => `
-        <div class="card">
-            <div class="entry-date">${entry.date}</div>
-            <div class="entry-text">${entry.text}</div>
-            <div class="entry-feeling ${entry.feeling.toLowerCase()}">
-                Feeling: ${entry.feeling}
-            </div>
-        </div>
-    `).join('');
-
-    document.getElementById('entriesList').innerHTML = entriesHTML;
     document.getElementById('yourEntries').style.display = 'block';
 
     // Get similar patients
