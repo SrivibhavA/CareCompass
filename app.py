@@ -14,15 +14,16 @@ from datetime import datetime
 import json
 
 app = Flask(__name__)
+global USER
+USER = 'David'
 
 # Download required NLTK data
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('averaged_perceptron_tagger')
-
-global USER
-
+nltk.download('omw-1.4')
 
 # Routes and APIs
 @app.route('/')
